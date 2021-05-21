@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\ContactFormController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,6 +19,14 @@ use App\Http\Controllers\Controller;
 Route::get('/', [Controller::class,'welcome']);
 Route::get('/create', [Controller::class,'create']);
 Route::post('/store', [Controller::class,'store']);
-Route::get('/contactus', [Controller::class,'contact']);
-Route::get('/mytask', [Controller::class,'show']);
-Route::get('/update', [Controller::class,'update']);
+Route::get('/mytask/{user}', [Controller::class,'show']);
+Route::get('/edit/{id}', [Controller::class,'edit']);
+Route::patch('/update/{id}', [Controller::class,'update']);
+Route::delete('/delete/{id}', [Controller::class,'destroy']);
+
+Route::get('/contactus', [ContactFormController::class,'create']);
+Route::post('/contact', [ContactFormController::class,'store']);
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

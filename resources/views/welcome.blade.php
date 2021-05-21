@@ -11,7 +11,7 @@
     <div class="row">
         <div class="col-md-12">
             <a href="/create" class="btn btn-dark">Add Task</a>
-            <a href="/mytask" class="btn btn-dark">My Task</a>
+            <a href="/mytask/admin" class="btn btn-dark">My Task</a>
         </div>
     </div>
 </div>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\task;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -17,15 +18,62 @@ class Controller extends BaseController
         return view('list.addtask');
     }
     public function store(){
-        //
+        
+        $data = request ()->validate([
+            'nametask' => 'required|min:3',
+            'status' => 'required'
+        ]);
+
+        $task = new Task();
+
+        $task->user = 'admin';
+        $task->name = request('nametask');
+        $task->description = request('description');
+        $task->status = request('status');
+        $task->image = request('image');
+        $task->save();
+
+        if (request()->has('image')){
+            $task->update([
+                'image' => request()->image->store('uploads','public'),
+            ]);
+            //$image = Image::make(public_path('storage/' . $customer->image))->crop(300, 300);
+            //$image = Image::make(public_path('storage/' . $task->image))->fit(300, 300);
+            //$image->save();
+            }
+        return redirect('/');
+        }
+    public function show($user){
+        $tasks = Task::all();
+        //dd($tasks);
+        return view('list.show', compact('tasks'));
     }
-    public function contact(){
-        return view('contact');
+    public function edit($id){
+        $task = Task::where('id', $id)->firstOrFail();
+        //dd($task);
+        return view('list.edit', compact('task'));
     }
-    public function show(){
-        return view('list.show');
+    public function update($id){
+        $data = request ()->validate([
+            'nametask' => 'required|min:3',
+            'status' => 'required'
+        ]);
+
+        $info = [
+            'user'=>'admin',
+            'name'=>request('nametask'),
+            'description'=>request('description'),
+            'status'=>request('status'),
+            'image'=>request('image'),
+        ];
+        $task = Task::updateOrCreate(
+            ['id'=> $id,], $info);
+        return redirect('/');
+        //dd($info);
     }
-    public function update(){
-        return view('list.edit');
+    public function destroy($id){
+        $task = Task::findOrFail($id);
+        $task->delete();
+        return redirect('/');
     }
 }

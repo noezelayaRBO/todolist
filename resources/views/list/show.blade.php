@@ -15,40 +15,21 @@
         <div class="col-md-2"></div>
     </div>
     <div class="row">
-        <div class="col-md-2"></div>
-        <div class="col-md-8">
-            <table class="table showtable">
-                <thead>
-                  <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Task</th>
-                    <th scope="col">Status</th>
-                    <th scope="col">Description</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td scope="row">1</td>
-                    <td>Mark</td>
-                    <td>Otto</td>
-                    <td>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam, recusandae unde dolorem omnis praesentium, quis nisi modi consequuntur voluptatibus asperiores rerum illum? Voluptas, obcaecati a molestiae laudantium eius temporibus nemo.</td>
-                  </tr>
-                  <tr>
-                    <td scope="row">2</td>
-                    <td>Jacob</td>
-                    <td>Thornton</td>
-                    <td>@fat</td>
-                  </tr>
-                  <tr>
-                    <td scope="row">3</td>
-                    <td>Larry</td>
-                    <td>the Bird</td>
-                    <td>@twitter</td>
-                  </tr>
-                </tbody>
-              </table>
-        </div>
-        <div class="col-md-2"></div>
+        @foreach ($tasks as $task)
+                <div class="row" style="padding-top: 10px;">
+                    <div class="col-lg-4">
+                      <a href="/edit/{{ $task->id }}">{{ $task->name }}</a>
+                        {{-- @can('view', $task)
+                        <a href="/edit/{{ $task->id }}">{{ $task->name }} </a>
+                        @endcan
+                        @cannot('view',$task)
+                            {{ $task->name }}
+                        @endcannot --}}
+                    </div>  
+                    <div class="col-lg-4"> {{ $task->status }} </div>
+                    <div class="col-lg-2"> {{ $task->description }} </div>
+                </div>
+            @endforeach
     </div>
     <div class="row">
         <div class="col-md-2"></div>
@@ -56,7 +37,50 @@
             <a href="/update" class="btn btn-dark">edit</a>
         </div>
     </div>
+    <div class="row">
+      <div class="col-md-2"></div>
+      <div class="col-md-8 table-responsive">
+        <table class="table table-striped table-bordered">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Status</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+          </tbody>          
+        </table>
+      </div>
+    </div>
 </div>
+
+<script>
+  $(document).ready(function(){
+  
+   load_data();
+   
+   function load_data(query='')
+   {
+    $.ajax({
+     url:"fetch.php",
+     method:"POST",
+     data:{query:query},
+     success:function(data)
+     {
+      $('tbody').html(data);
+     }
+    })
+   }
+  
+   $('#multi_search_filter').change(function(){
+    $('#hidden_country').val($('#multi_search_filter').val());
+    var query = $('#hidden_country').val();
+    load_data(query);
+   });
+   
+  });
+  </script>
 
 
 <style>
