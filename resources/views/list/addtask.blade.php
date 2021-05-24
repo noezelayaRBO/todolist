@@ -2,7 +2,7 @@
 
 @section('content')
 
-<div class="container">
+<div class="container" style="margin-top: 70px;">
     <form class="row g-3" style="padding-top: 30px" action="/store" method="POST" enctype="multipart/form-data">
         @csrf
         <div class="row">
@@ -50,6 +50,7 @@
             <div class="col-md-2"></div>
             <div class="col-md-10">
                 <button type="submit" class="btn btn-dark" style="margin-top: 50px;">Add</button>
+                <input type="hidden" class="form-control" id="user" name="user" value="{{ auth()->user()->name }}">
             </div>
         </div>
     </form>

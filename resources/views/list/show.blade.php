@@ -2,7 +2,7 @@
 
 @section('content')
 
-<div class="container">
+<div class="container" style="margin-top: 70px;">
     <div class="row" style="margin-bottom: 50px;">
         <div class="col-md-2"></div>
         <div class="col-md-8">
@@ -30,13 +30,13 @@
                     <div class="col-lg-2"> {{ $task->description }} </div>
                 </div>
             @endforeach
-    </div>
+    {{-- </div>
     <div class="row">
         <div class="col-md-2"></div>
         <div class="col-md-10">
             <a href="/update" class="btn btn-dark">edit</a>
         </div>
-    </div>
+    </div> --}}
     <div class="row">
       <div class="col-md-2"></div>
       <div class="col-md-8 table-responsive">

@@ -26,7 +26,7 @@ class Controller extends BaseController
 
         $task = new Task();
 
-        $task->user = 'admin';
+        $task->user = request('user');
         $task->name = request('nametask');
         $task->description = request('description');
         $task->status = request('status');
@@ -41,10 +41,14 @@ class Controller extends BaseController
             //$image = Image::make(public_path('storage/' . $task->image))->fit(300, 300);
             //$image->save();
             }
-        return redirect('/');
+        return redirect('/homeuser');
+        // Task::create($request->all());
+        // return json_encode(array(
+        //     "statusCode"=>200
+        // ));
         }
     public function show($user){
-        $tasks = Task::all();
+        $tasks = Task::where('user', $user)->get();
         //dd($tasks);
         return view('list.show', compact('tasks'));
     }
@@ -60,7 +64,7 @@ class Controller extends BaseController
         ]);
 
         $info = [
-            'user'=>'admin',
+            'user'=>request('user'),
             'name'=>request('nametask'),
             'description'=>request('description'),
             'status'=>request('status'),
@@ -68,7 +72,7 @@ class Controller extends BaseController
         ];
         $task = Task::updateOrCreate(
             ['id'=> $id,], $info);
-        return redirect('/');
+        return redirect('/homeuser');
         //dd($info);
     }
     public function destroy($id){

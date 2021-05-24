@@ -1,6 +1,8 @@
 <?php
 
+use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
+use Inertia\Inertia;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\ContactFormController;
 
@@ -15,18 +17,30 @@ use App\Http\Controllers\ContactFormController;
 |
 */
 
+Route::get('/', function () {
+    return Inertia::render('Welcome', [
+        'canLogin' => Route::has('login'),
+        'canRegister' => Route::has('register'),
+        'laravelVersion' => Application::VERSION,
+        'phpVersion' => PHP_VERSION,
+    ]);
+});
 
-Route::get('/', [Controller::class,'welcome']);
-Route::get('/create', [Controller::class,'create']);
+Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
+    return Inertia::render('Dashboard');
+})->name('dashboard');
+
+Route::get('/homeuser', [Controller::class,'welcome'])->middleware('auth');
+Route::get('/create', [Controller::class,'create'])->middleware('auth');
 Route::post('/store', [Controller::class,'store']);
-Route::get('/mytask/{user}', [Controller::class,'show']);
-Route::get('/edit/{id}', [Controller::class,'edit']);
+Route::get('/mytask/{user}', [Controller::class,'show'])->middleware('auth');
+Route::get('/edit/{id}', [Controller::class,'edit'])->middleware('auth');
 Route::patch('/update/{id}', [Controller::class,'update']);
-Route::delete('/delete/{id}', [Controller::class,'destroy']);
+Route::delete('/delete/{id}', [Controller::class,'destroy'])->middleware('auth');
 
 Route::get('/contactus', [ContactFormController::class,'create']);
 Route::post('/contact', [ContactFormController::class,'store']);
 
-Auth::routes();
+//Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

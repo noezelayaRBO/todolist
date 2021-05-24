@@ -50,6 +50,7 @@
         <div class="row">
             <div class="col-md-2"></div>
             <div class="col-md-10">
+                <input type="hidden" class="form-control" id="user" name="user" value="{{ auth()->user()->name }}">
                 <button type="submit" class="btn btn-dark" style="margin-top: 50px;">Update</button></form>
             <form action="/delete/{{ $task->id }}" method="POST">
                 @method('DELETE')
