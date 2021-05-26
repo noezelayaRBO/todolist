@@ -2,8 +2,8 @@
 
 @section('content')
 
-<div class="container" style="margin-top: 70px;">
-    <div class="row" style="margin-bottom: 50px;">
+<div class="container-fluid" style="margin-top: 70px;">
+    {{-- <div class="row" style="margin-bottom: 50px;">
         <div class="col-md-2"></div>
         <div class="col-md-8">
             <select class="form-select" id="status" name="status" style="width: 30%">
@@ -13,74 +13,78 @@
             </select>
         </div>
         <div class="col-md-2"></div>
-    </div>
-    <div class="row">
-        @foreach ($tasks as $task)
-                <div class="row" style="padding-top: 10px;">
-                    <div class="col-lg-4">
-                      <a href="/edit/{{ $task->id }}">{{ $task->name }}</a>
-                        {{-- @can('view', $task)
-                        <a href="/edit/{{ $task->id }}">{{ $task->name }} </a>
-                        @endcan
-                        @cannot('view',$task)
-                            {{ $task->name }}
-                        @endcannot --}}
-                    </div>  
-                    <div class="col-lg-4"> {{ $task->status }} </div>
-                    <div class="col-lg-2"> {{ $task->description }} </div>
-                </div>
-            @endforeach
-    {{-- </div>
-    <div class="row">
-        <div class="col-md-2"></div>
-        <div class="col-md-10">
-            <a href="/update" class="btn btn-dark">edit</a>
-        </div>
     </div> --}}
     <div class="row">
-      <div class="col-md-2"></div>
-      <div class="col-md-8 table-responsive">
-        <table class="table table-striped table-bordered">
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>Status</th>
-              <th>Description</th>
-            </tr>
-          </thead>
-          <tbody>
-          </tbody>          
-        </table>
+      <div class="col-md-12" style="text-align: center">
+        <h1 class="display-1">Schedule</h1><br>
       </div>
     </div>
+    <div class="row">
+      <div class="col-md-1"></div>
+      <div class="col-md-10">
+        <table class="table table-striped table-hover">
+          <thead>
+            <tr>
+              <th scope="col">Name</th>
+              <th scope="col">Status</th>
+              <th scope="col">Description</th>
+            </tr>
+          </thead>
+        @foreach ($tasks as $task)
+          <tr>
+            <td><a href="/edit/{{ $task->id }}">{{ $task->name }}</a></td>
+            <td>{{ $task->status }}</td>
+            <td>{{ $task->description }}</td>
+            <td ><span class="text-muted">{{ $task->notes }}</span></td>
+          </tr>
+            @endforeach
+          </table></div>
+          <div class="col-md-1"></div>
+    <div class="row">
+      <div class="col-md-2"></div>
+    </div>
+    <div class="row hidden" style="margin-top: 60px;">
+        <div class="col-md-1"></div>
+        <div class="col-md-10">
+          <table class="table table-striped table-hover">
+            <thead>
+              <tr>
+                <th scope="col">User</th>
+                <th scope="col">Name</th>
+                <th scope="col">Status</th>
+                <th scope="col">Description</th>
+              </tr>
+            </thead>
+            <tbody>
+      @foreach ($admin as $admin)
+                  <tr> 
+                    <td>{{ $admin->user }}</td>  
+                    <td><a href="/edit/{{ $admin->id }}">{{ $admin->name }}</a></td>
+                    <td>{{ $admin->status }} </div></td>
+                    <td>{{ $admin->description }}</td>
+                    <td><span class="text-muted">{{ $admin->notes }}</span></td>
+                  </tr>
+            @endforeach
+          </tbody>
+          </table>
+        </div>
+        <div class="col-md-1"></div>
+          </div>
 </div>
+<style>
+  div.hidden{
+      display:none;
+  }
+</style>
+@if ( $user == "admin")
+<style>
+  div.hidden{
+      display:flex;
+  }
+</style>
 
-<script>
-  $(document).ready(function(){
-  
-   load_data();
-   
-   function load_data(query='')
-   {
-    $.ajax({
-     url:"fetch.php",
-     method:"POST",
-     data:{query:query},
-     success:function(data)
-     {
-      $('tbody').html(data);
-     }
-    })
-   }
-  
-   $('#multi_search_filter').change(function(){
-    $('#hidden_country').val($('#multi_search_filter').val());
-    var query = $('#hidden_country').val();
-    load_data(query);
-   });
-   
-  });
-  </script>
+@endif
+
 
 
 <style>

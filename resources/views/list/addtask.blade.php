@@ -45,12 +45,38 @@
                 </div>
             </div>
             <div class="col-md-2"></div>
-        </div> --}}
+        </div> --}} 
+        <div class="row hidden" style="padding-top: 20px">
+            <div class="col-md-2"></div>
+            <div class="col-md-8">
+                <select class="form-select"name="user" id="user">
+                    <option value="{{ auth()->user()->name }}" selected>{{ auth()->user()->name }} </option>
+                @foreach ($user as $user)
+                    <option value="{{ $user->name }}">{{ $user->name }}</option>    
+                @endforeach
+            </select>
+            </div>
+            <style>
+                div.hidden{
+                    display:none;
+                }
+            </style>
+            @if ( $id == 1)
+            <style>
+                div.hidden{
+                    display:flex;
+                }
+            </style>
+            @endif
+            
+            
+        </div>
         <div class="row">
             <div class="col-md-2"></div>
             <div class="col-md-10">
                 <button type="submit" class="btn btn-dark" style="margin-top: 50px;">Add</button>
-                <input type="hidden" class="form-control" id="user" name="user" value="{{ auth()->user()->name }}">
+                
+                {{--<input type="hidden" class="form-control" id="user" name="user" value="{{ auth()->user()->name }}">--}}
             </div>
         </div>
     </form>

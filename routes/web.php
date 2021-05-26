@@ -31,12 +31,13 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 })->name('dashboard');
 
 Route::get('/homeuser', [Controller::class,'welcome'])->middleware('auth');
-Route::get('/create', [Controller::class,'create'])->middleware('auth');
+Route::get('/create/{id}', [Controller::class,'create'])->middleware('auth');
 Route::post('/store', [Controller::class,'store']);
 Route::get('/mytask/{user}', [Controller::class,'show'])->middleware('auth');
 Route::get('/edit/{id}', [Controller::class,'edit'])->middleware('auth');
 Route::patch('/update/{id}', [Controller::class,'update']);
 Route::delete('/delete/{id}', [Controller::class,'destroy'])->middleware('auth');
+Route::post('/storenotes/{id}', [Controller::class,'storenotes']);
 
 Route::get('/contactus', [ContactFormController::class,'create']);
 Route::post('/contact', [ContactFormController::class,'store']);
