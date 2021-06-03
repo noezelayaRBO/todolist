@@ -4,7 +4,11 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\DailyController;
 use App\Http\Controllers\ContactFormController;
+use App\Http\Controllers\NoteController;
+use App\Http\Controllers\TaskController;
+use App\Http\Controllers\WeeklyController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,18 +34,31 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->name('dashboard');
 
-Route::get('/homeuser', [Controller::class,'welcome'])->middleware('auth');
-Route::get('/create/{id}', [Controller::class,'create'])->middleware('auth');
-Route::post('/store', [Controller::class,'store']);
-Route::get('/mytask/{user}', [Controller::class,'show'])->middleware('auth');
-Route::get('/edit/{id}', [Controller::class,'edit'])->middleware('auth');
-Route::patch('/update/{id}', [Controller::class,'update']);
-Route::delete('/delete/{id}', [Controller::class,'destroy'])->middleware('auth');
-Route::post('/storenotes/{id}', [Controller::class,'storenotes']);
+Route::get('/homeuser', [TaskController::class,'welcome'])->middleware('auth');
+Route::get('/create/{id}', [TaskController::class,'create'])->middleware('auth');
+Route::post('/store', [TaskController::class,'store']);
+Route::post('/storedaily', [TaskController::class,'storedaily']);
+Route::get('/mytask/{user}', [TaskController::class,'show'])->middleware('auth');
+Route::get('/edit/{id}', [TaskController::class,'edit'])->middleware('auth');
+Route::patch('/update/{id}', [TaskController::class,'update']);
+Route::delete('/delete/{id}', [TaskController::class,'destroy'])->middleware('auth');
 
-Route::get('/contactus', [ContactFormController::class,'create']);
+Route::get('/daily/{id}', [DailyController::class,'daily'])->middleware('auth');
+Route::post('/storedaily/{id}', [DailyController::class,'store']);
+Route::delete('/deletedaily/{id}', [DailyController::class,'destroy']);
+Route::get('/editdaily/{id}', [DailyController::class,'edit'])->middleware('auth');
+Route::patch('/updatedaily/{id}', [DailyController::class,'update']);
+
+Route::post('/storenotes/{id}', [NoteController::class,'storenotes']);
+Route::patch('/updatenote/{id}/{task}', [NoteController::class,'updatenote']);
+Route::delete('/deletenote/{id}', [NoteController::class,'destroynote']);
+
+Route::get('/contactus', [ContactFormController::class,'view']);
 Route::post('/contact', [ContactFormController::class,'store']);
 
 //Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::get('/weekly/{weekly}/index', [WeeklyController::class,'showweekly']);
+Route::resource('weekly', 'App\Http\Controllers\WeeklyController');

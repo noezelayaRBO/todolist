@@ -8,7 +8,7 @@ use App\Mail\ContactFormMail;
 
 class ContactFormController extends Controller
 {
-    public function create(){
+    public function view(){
         
         return view('contact');
     }
@@ -19,6 +19,6 @@ class ContactFormController extends Controller
             'message' => 'required',
         ]);
         Mail::to('test@test.com')->send(new ContactFormMail($data));
-        return redirect('/');
+        return redirect('/homeuser');
     }
 }

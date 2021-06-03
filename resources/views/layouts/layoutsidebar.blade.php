@@ -5,14 +5,16 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <title>To Do List</title>
-
+        
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
         <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 
         <!-- Bootstrap -->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
@@ -32,48 +34,45 @@
         </style>
     </head>
     <div class="w3-sidebar w3-bar-block w3-border-right" style="display:none;"  id="mySidebar">
-      <button onclick="w3_close()" class="w3-bar-item w3-large">Close &times;</button>
-      <a class="nav-link active" aria-current="page" href="/homeuser"  style="color: black;"><i class="bi bi-house"></i> Home</a>
-      <a class="nav-link" href="/contactus"  style="color: black;" ><i class="bi bi-envelope"></i> Contact Us </a> 
-      <a class="nav-link" href="/daily/{{ auth()->user()->id }}"  style="color: black;"><i class="bi bi-alarm"></i> Daily tasks</a>
-      <a class="nav-link" href="/weekly/{{ auth()->user()->id }}"  style="color: black;"><i class="bi bi-alarm"></i> Weekly tasks</a>
-      <a class="nav-link" href="/create/{{ auth()->user()->id }}" style="color: black;"><i class="bi bi-plus-circle"></i> Add Task</a>
-      <a class="nav-link" href="/mytask/{{ auth()->user()->name }}" style="color: black;"><i class="bi bi-calendar-day"></i> My Task</a> 
-      
-      
-    </div>
-    <div class="w3-teal" style="background-color: black">
-      <button class="w3-button w3-teal w3-xlarge" onclick="w3_open()">☰</button>
-      <div class="w3-container">
-        <h1>To do list</h1>
+        <button onclick="w3_close()" class="w3-bar-item w3-large">Close &times;</button>
+        <a class="nav-link active" aria-current="page" href="/homeuser"  style="color: black;"><i class="bi bi-house"></i> Home</a>
+        <a class="nav-link" href="/contactus"  style="color: black;" ><i class="bi bi-envelope"></i> Contact Us </a> 
+        <a class="nav-link" href="/mytask/{{ auth()->user()->name }}"  style="color: black;"><i class="bi bi-alarm"></i> Daily tasks</a>
+        <a class="nav-link" href="/create/{{ auth()->user()->id }}" style="color: black;"><i class="bi bi-plus-circle"></i> Add Task</a>
+        <a class="nav-link" href="/mytask/{{ auth()->user()->name }}" style="color: black;"><i class="bi bi-calendar-day"></i> My Task</a> 
+        
+        
       </div>
-    </div>
-    <script>
-      function w3_open() {
-        document.getElementById("mySidebar").style.display = "block";
-      }
-      
-      function w3_close() {
-        document.getElementById("mySidebar").style.display = "none";
-      }
-      </script>
-    @if (Route::has('login'))
-          <div class="hidden fixed top-0 right-0 px-6 py-4 sm:block">
-              @auth
-                  <a href="{{ url('/user/profile') }}" class="text-sm text-gray-700 underline">User</a>
-              @else
-                  <a href="{{ route('login') }}" class="text-sm text-gray-700 underline">Log in</a>
+      <div class="w3-teal" style="background-color: black">
+        <button class="w3-button w3-teal w3-xlarge" onclick="w3_open()">☰</button>
+        <div class="w3-container">
+          <h1>To do list</h1>
+        </div>
+      </div>
+      <script>
+        function w3_open() {
+          document.getElementById("mySidebar").style.display = "block";
+        }
+        
+        function w3_close() {
+          document.getElementById("mySidebar").style.display = "none";
+        }
+        </script>
+      @if (Route::has('login'))
+            <div class="hidden fixed top-0 right-0 px-6 py-4 sm:block">
+                @auth
+                    <a href="{{ url('/user/profile') }}" class="text-sm text-gray-700 underline">User</a>
+                @else
+                    <a href="{{ route('login') }}" class="text-sm text-gray-700 underline">Log in</a>
 
-                  @if (Route::has('register'))
-                      <a href="{{ route('register') }}" class="ml-4 text-sm text-gray-700 underline">Register</a>
-                  @endif
-              @endauth
-          </div>
-      @endif
+                    @if (Route::has('register'))
+                        <a href="{{ route('register') }}" class="ml-4 text-sm text-gray-700 underline">Register</a>
+                    @endif
+                @endauth
+            </div>
+        @endif
+       
 
-             
-
-
-            @yield('content')
-    </body>
+    @yield('content')
+</body>
 </html>
