@@ -42,6 +42,7 @@ Route::get('/mytask/{user}', [TaskController::class,'show'])->middleware('auth')
 Route::get('/edit/{id}', [TaskController::class,'edit'])->middleware('auth');
 Route::patch('/update/{id}', [TaskController::class,'update']);
 Route::delete('/delete/{id}', [TaskController::class,'destroy'])->middleware('auth');
+Route::patch('/complete/{id}',[TaskController::class, 'complete']);
 
 Route::get('/daily/{id}', [DailyController::class,'daily'])->middleware('auth');
 Route::post('/storedaily/{id}', [DailyController::class,'store']);
@@ -50,7 +51,7 @@ Route::get('/editdaily/{id}', [DailyController::class,'edit'])->middleware('auth
 Route::patch('/updatedaily/{id}', [DailyController::class,'update']);
 
 Route::post('/storenotes/{id}', [NoteController::class,'storenotes']);
-Route::patch('/updatenote/{id}/{task}', [NoteController::class,'updatenote']);
+Route::patch('/updatenote/{id}', [NoteController::class,'updatenote']);
 Route::delete('/deletenote/{id}', [NoteController::class,'destroynote']);
 
 Route::get('/contactus', [ContactFormController::class,'view']);

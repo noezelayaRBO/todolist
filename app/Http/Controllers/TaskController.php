@@ -30,15 +30,17 @@ class TaskController extends Controller
         $task->name = request('nametask');
         $task->description = request('description');
         $task->date = request('date');
-        $task->time = request('time');
+        $task->end = request('datefinish');
+        $task->complete = 0;
         $task->save();
         return redirect('/mytask/'.$user);
         // dd($task);
         }
     public function show($user){
-        $tasks = Task::where('user_id', $user)->get();
+        $tasks = Task::incomplete()->where('user_id', $user)->orderBy('date')->get();
         $admin = Task::all();
-        return view('list.show', compact('tasks','admin', 'user'));
+        $completed = Task::completed()->where('user_id', $user)->orderBy('date')->get();
+        return view('list.show', compact('tasks','admin', 'user', 'completed'));
     }
     public function edit($id){
         $task = Task::where('id', $id)->firstOrFail();
@@ -50,23 +52,41 @@ class TaskController extends Controller
         $data = request ()->validate([
             'nametask' => 'required|min:3',
         ]);
+        $user = request('user');
         $info = [
             'user_id'=>request('user'),
             'name'=>request('nametask'),
             'description'=>request('description'),
-            'time'=>request('time'),
             'date'=>request('date'),
+            'complete'=>0,
+            'end'=>request('end'),
         ];
         $task = Task::updateOrCreate(
             ['id'=> $id,], $info);
-        return redirect('/homeuser');
+        return redirect('/mytask/'.$user);
         //dd($info);
     }
     public function destroy($id){
         $task = Task::findOrFail($id);
         $task->delete();
         $notes = Notes::where('id_tasks', '=', $id)->delete();
-        return redirect('/mytask/' .$task->user.'');
+        $user = request('usertask');
+        return redirect('/mytask/' .$user);
+    }
+    public function complete($id){
+        $info = [
+            'user_id'=>request('user_id'),
+            'name'=>request('name'),
+            'description'=>request('description'),
+            'time'=>request('time'),
+            'date'=>request('date'),
+            'complete'=>1,
+            'end'=>request('end'),
+        ];
+        $user = request('user_id');
+        $task = Task::updateOrCreate(
+            ['id'=> $id,], $info);
+        return redirect('/mytask/'.$user);        
     }
     
 }

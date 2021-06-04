@@ -24,30 +24,31 @@ class NoteController extends Controller
         //     "statusCode"=>200
         // ));
     }
-    public function updatenote($id, $task)
+    public function updatenote($id)
     {
-        $request = request();
-        dd($request);
+        // $request = request();
+        // dd($request);
         $validate = request()->validate([
-            'newnote' => 'required',
+            'notesupdate' => 'required',
         ]);
+        $idtask = request('id_task');
         $info = [
             'id'=>$id,
-            'id_tasks'=>$task,
-            'notes'=>request('newnote'),
+            'id_tasks'=>request('id_task'),
+            'notes'=>request('notesupdate'),
         ];
-        // 'valuenote'.$id.''
-        dd($info);
-        dd(request());
-        // $notes = Notes::updateOrCreate(
-        //     ['id'=> $id,], $info);
-        // return redirect('/edit/' .$task.'');
+        // dd($info);
+        // dd(request());
+        $notes = Notes::updateOrCreate(
+            ['id'=> $id,], $info);
+        return redirect('/edit/' .$idtask);
     }
-    public function destroynote($id, $task)
+    public function destroynote($id)
     {
         $notes = Notes::findOrFail($id);
         $notes->delete();
+        $idtask = request('id_task');
         // dd($id, $task);
-        return redirect('/edit/' .$task.'');
+        return redirect('/edit/' .$idtask);
     }
 }

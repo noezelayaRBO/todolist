@@ -30,24 +30,15 @@
         <div class="row">
             <div class="col-md-4"></div>
             <div class="col-md-4">
-                <label for="validationCustom01" class="form-label">Date</label>
+                <label for="validationCustom01" class="form-label">Start Day</label>
                 <input type="date" name="date" id="date" class="form-control">
-                <label for="validationCustom01" class="form-label">Time</label>
-                <input type="time" name="time" id="time" class="form-control">
+                {{-- <label for="validationCustom01" class="form-label">Time</label>
+                <input type="time" name="time" id="time" class="form-control"> --}}
+                <label for="validationCustom01" class="form-label">Finish Day</label>
+                <input type="date" name="datefinish" id="datefinish" class="form-control">
             </div>
             <div class="col-md-4"></div>
         </div>
-        {{-- <div class="row">
-            <div class="col-md-2"></div>
-            <div class="col-md-8">
-                <div class="form-group d-flex flex-column">
-                    <label for="image">Image</label>
-                    <input type="file" name="image" class="py-3">
-                <div>{{ $errors->first('image') }}</div>
-                </div>
-            </div>
-            <div class="col-md-2"></div>
-        </div> --}} 
         <div class="row hidden" style="padding-top: 20px">
             <div class="col-md-4"></div>
             <div class="col-md-4">
