@@ -8,16 +8,16 @@ use App\Models\UserTasks;
 use App\Models\User;
 use App\Models\Notes;
 use App\Models\Daily;
-use App\Models\Group;
 use App\Models\Weekly;
+use App\Mail\MyTestMail;
+use Illuminate\Support\Facades\Mail;
 
 class DailyController extends Controller
 {
     public function daily($id){
         $user = UserTasks::all();
-        $group = Group::all();
         $daily = Daily::where('user', $id)->orderBy('time')->get();
-        return view('daily.daily', compact('user', 'id', 'daily', 'group'));
+        return view('daily.daily', compact('user', 'id', 'daily'));
     }
     public function store($id){
         $data = request ()->validate([
@@ -31,8 +31,21 @@ class DailyController extends Controller
         $daily->time = request('time');
         // $daily->group = request('group');
         $daily->save();
+        $details = request('email');
+        \Mail::to($details)->send(new \App\Mail\MyTestMail($daily));
         return redirect('/daily/'.$id);
         // dd($daily);
+
+        
+        // $to_name = 'RECEIVER_NAME';
+        // $to_email = 'RECEIVER_EMAIL_ADDRESS';
+        // $data = array('name'=>'Ogbonna Vitalis(sender_name)', 'body' => 'A test mail');
+        // Mail::send('emails.mail', $data, function($message) use ($to_name, $to_email) {
+        // $message->to($to_email, $to_name)
+        // ->subject(Laravel Test Mail’);
+        // $message->from('SENDER_EMAIL_ADDRESS','Test Mail');
+        // });
+
         }
         public function destroy($id){
             $daily = Daily::findOrFail($id);

@@ -20,7 +20,13 @@ class Task extends Model
         return $query->where('complete',1);
     }
     public function user(){
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(UserTask::class);
+    }
+    public function getCompleteAttribute($attribute){
+        return [
+            0 => 'incomplete',
+            1 => 'completed',
+        ][$attribute];
     }
     
 }

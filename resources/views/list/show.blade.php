@@ -3,17 +3,6 @@
 @section('content')
 
 <div class="container-fluid" style="margin-top: 70px;">
-    {{-- <div class="row" style="margin-bottom: 50px;">
-        <div class="col-md-2"></div>
-        <div class="col-md-8">
-            <select class="form-select" id="status" name="status" style="width: 30%">
-                <option value="2">All</option>
-                <option value="1">Program</option>
-                <option value="0">In Progress</option>
-            </select>
-        </div>
-        <div class="col-md-2"></div>
-    </div> --}}
     <div class="row">
       <div class="col-md-12" style="text-align: center">
         <h1 class="display-1">Schedule</h1><br>
@@ -31,12 +20,11 @@
             <col span="1" style="width: 5%;">
             <col span="1" style="width: 5%;">
             <col span="1" style="width: 5%;">
-            {{-- <col span="1" style="width: 75%;"> --}}
          </colgroup>
           <thead>
             <tr>
               <th scope="col">Name</th>
-              <th colspan="2">Date (YY/MM/DD)</th>
+              <th colspan="2">Date </th>
               <th scope="col">Description</th>
               <th scope="col"></th>
               <th scope="col"></th>
@@ -92,9 +80,10 @@
                     <h5 class="modal-title" id="exampleModalLabel">Complete this task</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
+                    {{-- <?php echo date('Y-m-d'); ?> --}}
                     <div class="modal-body" style="text-align: center">
                     <p>Your task "{{ $task->name }}" is complete at </p>
-                    <input type="date" value="<?php echo date('Y-m-d'); ?>" id="end" name="end" disabled>
+                    <input type="date" value="<?php echo date('Y-m-d'); ?>" id="datefinish" name="datefinish">
                     <input type="time" class="form-control" id="time" name="time">
                     <input type="hidden" id="user_id" name="user_id" value="{{ $task->user_id }}">
                     <input type="hidden" id="name" name="name" value="{{ $task->name }}">
@@ -191,11 +180,23 @@
         <div class="col-md-10">
           <table class="table table-striped table-hover"  id="tablepag">
             <thead>
+              <colgroup>
+                <col span="1" style="width: 10%;">
+                <col span="1" style="width: 10%;">
+                <col span="1" style="width: 15%;">
+                <col span="1" style="width: 15%;">
+                <col span="1" style="width: 25%;">
+                <col span="1" style="width: 10%;">
+                <col span="1" style="width: 5%;">
+                <col span="1" style="width: 5%;">
+                <col span="1" style="width: 5%;">
+             </colgroup>
               <tr>
                 <th scope="col">User</th>
                 <th scope="col">Name</th>
-                <th scope="col">Date</th>
+                <th colspan="2">Date</th>
                 <th scope="col">Description</th>
+                <th>Complete</th>
                 <th scope="col"></th>
                 <th scope="col"></th>
                 <th scope="col"></th>
@@ -206,8 +207,10 @@
                   <tr> 
                     <td>{{ $admin->user_id }}</td>  
                     <td>{{ $admin->name }}</td>
-                    <td><input type="time" disabled value="{{ $admin->time }}"> {{ date('m-d-Y', strtotime($admin->date)) }} </div></td>
+                    <td>{{ $admin->date }}</td>
+                    <td>{{ $admin->end }}</td>
                     <td>{{ $admin->description }}</td>
+                    <td>{{ $admin->complete }}</td>
                     <td><a href="/edit/{{ $admin->id }}" class="btn btn-primary"><i class="fa fa-edit"></a></td>
                     <td>
                       <div class="modal fade" id="exampleModalone{{ $admin->id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -234,6 +237,40 @@
                         </form>
                     </div>
                     <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModalone{{ $admin->id }}"><i class="fa fa-trash"></i></button>
+                    </td>
+                    <td>
+                      <div class="modal fade" id="completed{{ $admin->id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                      <form action="/complete/{{ $admin->id }}" method="POST">
+                        @csrf
+                        @method('PATCH')
+                        <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Complete this task</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            {{-- <?php echo date('Y-m-d'); ?> --}}
+                            <div class="modal-body" style="text-align: center">
+                            <p>Your task "{{ $admin->name }}" is complete at </p>
+                            <input type="date" value="<?php echo date('Y-m-d'); ?>" id="datefinish" name="datefinish">
+                            <input type="time" class="form-control" id="time" name="time">
+                            <input type="hidden" id="user_id" name="user_id" value="{{ $admin->user_id }}">
+                            <input type="hidden" id="name" name="name" value="{{ $admin->name }}">
+                            <input type="hidden" id="description" name="description" value="{{ $admin->description }}">
+                            <input type="date" id="date" name="date" class="hidden" value="{{ $admin->date }}">
+                            
+                            <i class="bi bi-question" style="text-align: center; font-size: 6rem; color: blue;"></i>
+                            </div>
+                            <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <input type="submit" value="Completed" class="btn btn-success">
+                            </div>
+                        </div>
+                        </div>
+                    </form>
+                </div>
+        
+                      <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#completed{{ $admin->id }}"><i class="bi bi-calendar-check-fill"></i></button>
                     </td>
                   </tr>
             @endforeach

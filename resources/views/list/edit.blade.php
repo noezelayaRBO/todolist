@@ -41,16 +41,47 @@
                     <div class="col-md-3"></div>
                     <div class="col-md-6">
                         <label for="validationCustom01" class="form-label">Finish Day</label>
-                        <input type="date" name="datefinish" id="datefinish" class="form-control">
-                        {{-- <label for="validationCustom01" class="form-label">Time</label> --}}
-                        {{-- <input type="time" name="time" id="time" class="form-control" value="{{ $task->time }}"> --}}
+                        <input type="date" name="datefinish" id="datefinish" class="form-control" value="{{ $task->end }}">
                     </div>
                     <div class="col-md-3"></div>
                 </div>
                 <div class="row">
                     <div class="col-md-3"></div>
                     <div class="col-md-6">
-                        <input type="hidden" class="form-control" id="user" name="user" value="{{ auth()->user()->name }}">
+                        <label for="validationCustom01" class="form-label">Time End</label>
+                        <input type="time" name="time" id="time" class="form-control" value="{{ $task->time }}">
+                    </div>
+                    <div class="col-md-3"></div>
+                </div>
+                <div class="row hidden" style="padding-top: 20px">
+                    <div class="col-md-4"></div>
+                    <div class="col-md-4">
+                        <select class="form-select" name="user" id="user">
+                            {{-- <option value="{{ auth()->user()->name }}" selected>{{ auth()->user()->name }} </option> --}}
+                        @foreach ($user as $user)
+                            <option value="{{ $user->name }}" {{ $user->name == $task->user_id ? 'selected' : '' }}>{{ $user->name }}</option>    
+                        @endforeach
+                    </select>
+                    </div>
+                </div>
+                    <style>
+                        div.hidden{
+                            display:none;
+                        }
+                    </style>
+                    
+                    @if ( auth()->user()->name == "admin")
+                    <style>
+                        div.hidden{
+                            display:flex;
+                        }
+                    </style>
+                    @endif
+                
+                <div class="row">
+                    <div class="col-md-3"></div>
+                    <div class="col-md-6">
+                        <input type="hidden" class="form-control" id="usertwo" name="usertwo" value="{{ auth()->user()->name }}">
                         <button type="submit" class="btn btn-dark" style="margin-top: 20px;">Update</button>
                     </div>
                     <div class="col-md-3"></div>
@@ -76,7 +107,6 @@
                             <div class="col-md-4"></div>
                         </div>
                     </form>
-                    {{-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="fa fa-edit"></i>modal</button> --}}
                     <div class="row">
                         <div class="col-md-8">
                             <table class="table table-striped table-hover width:100%" style="margin-top: 30px">
@@ -148,10 +178,9 @@
                         </div>
                         <div class="col-md-4"></div>
                     </div>
-        </div> {{-- Col --}}
-    </div> {{-- MainRow --}}
-</div> {{-- Container --}}
-
+        </div> 
+    </div> 
+</div> 
             <div class="col-md-4">
                 <div class="container-fluid">
                     

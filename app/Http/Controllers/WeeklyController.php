@@ -6,8 +6,10 @@ use App\Models\UserTasks;
 use App\Models\User;
 use App\Models\Notes;
 use App\Models\Daily;
-use App\Models\Group;
 use App\Models\Weekly;
+use App\Mail\WeeklyMail;
+use Illuminate\Support\Facades\Mail;
+
 
 use Illuminate\Http\Request;
 
@@ -53,6 +55,8 @@ class WeeklyController extends Controller
         $weekly->time = request('time');
         $weekly->day = request('day');
         $weekly->save();
+        $details = request('email');
+        \Mail::to($details)->send(new \App\Mail\WeeklyMail($weekly));
         // dd($weekly);
         // dd(request());
         return redirect('/weekly/'.$weeklyuser);
@@ -75,7 +79,6 @@ class WeeklyController extends Controller
         $friday = Weekly::friday()->where('user_id', $weekly)->orderBy('time')->get();
         $saturday = Weekly::saturday()->where('user_id', $weekly)->orderBy('time')->get();
         $sunday = Weekly::sunday()->where('user_id', $weekly)->orderBy('time')->get();
-        
         // dd($user, $weekly);
         return view('weekly.index', compact('user', 'weekly', 'weeklytask', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'));
     }

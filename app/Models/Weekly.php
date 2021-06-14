@@ -52,4 +52,7 @@ class Weekly extends Model
         return $query->where('day',7);
     }
 
+    public function usertasks(){
+        return $this->belongsTo(UserTasks::class);
+    }
 }

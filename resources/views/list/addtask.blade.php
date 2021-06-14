@@ -15,7 +15,7 @@
                 <div class="col-md-4">
                     <label for="validationCustom01" class="form-label">Name</label>
                     <input type="text" class="form-control" id="nametask" name="nametask" value="">
-                    {{ $errors->first('name') }}
+                    {{ $errors->first('nametask') }}
             </div>
             <div class="col-md-4"></div>
         </div>
@@ -31,11 +31,14 @@
             <div class="col-md-4"></div>
             <div class="col-md-4">
                 <label for="validationCustom01" class="form-label">Start Day</label>
-                <input type="date" name="date" id="date" class="form-control">
-                {{-- <label for="validationCustom01" class="form-label">Time</label>
-                <input type="time" name="time" id="time" class="form-control"> --}}
+                <input type="date" name="date" id="date" class="form-control" min="<?php echo date('Y-m-d'); ?>">
+                {{ $errors->first('date') }}<br>
                 <label for="validationCustom01" class="form-label">Finish Day</label>
-                <input type="date" name="datefinish" id="datefinish" class="form-control">
+                <input type="date" name="datefinish" id="datefinish" class="form-control" min="<?php echo date('Y-m-d'); ?>">
+                {{ $errors->first('datefinish') }}<br>
+                <label for="validationCustom01" class="form-label">Time End</label>
+                <input type="time" name="time" id="time" class="form-control">
+                {{ $errors->first('time') }}
             </div>
             <div class="col-md-4"></div>
         </div>
@@ -68,7 +71,7 @@
         <div class="row">
             <div class="col-md-4"></div>
             <div class="col-md-4">
-
+                <input type="hidden" id="email" name="email" value="{{ auth()->user()->email }}">
                 <button type="submit" class="btn btn-dark" style="margin-top: 50px;">Add</button>
                 <input type="hidden" class="form-control" id="username" name="username" value="{{ auth()->user()->name }}">
             </div>

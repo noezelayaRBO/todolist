@@ -34,19 +34,6 @@
                         <div class="col-md-1"></div>
                         
                     </div>
-                    {{-- <div class="row">
-                        <div class="col-md-1"></div>
-                        <div class="col-md-10">
-                            <label for="validationCustom01" class="form-label">Group</label>
-                            <select class="form-select" id="group" name="group">
-                                <option value="" disabled selected>...</option>
-                                @foreach ($group as $group)
-                                <option value="{{ $group->name }}">{{ $group->name }}</option>    
-                                @endforeach
-                            </select>
-                        </div>
-                        <div class="col-md-1"></div>
-                    </div> --}}
                     <div class="row">
                         <div class="col-md-1"></div>
                         <div class="col-md-10">
@@ -70,6 +57,7 @@
                     </div>
                     <div class="row">
                         <div class="col-md-11" style="text-align: right">
+                            <input type="hidden" id="email" name="email" value="{{ auth()->user()->email }}">
                             <button type="submit" class="btn btn-dark" style="margin-top: 10px;">Add</button>
                         </div>
                         <div class="col-md-1"></div>

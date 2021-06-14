@@ -79,6 +79,7 @@
             <div class="row">
                 <div class="col-md-1"></div>
                 <div class="col-md-10">
+                    <input type="hidden" id="email" name="email" value="{{ auth()->user()->email }}">
                     <button type="submit" class="btn btn-dark" style="margin-top: 10px;">Add</button>
                 </div>
                 <div class="col-md-1"></div>

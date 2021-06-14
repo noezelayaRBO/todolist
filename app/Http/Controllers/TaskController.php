@@ -8,8 +8,10 @@ use App\Models\UserTasks;
 use App\Models\User;
 use App\Models\Notes;
 use App\Models\Daily;
-use App\Models\Group;
 use App\Models\Weekly;
+use App\Mail\WeeklyMail;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\TaskMail;
 
 class TaskController extends Controller
 {
@@ -23,6 +25,9 @@ class TaskController extends Controller
     public function store(){
         $data = request ()->validate([
             'nametask' => 'required|min:3',
+            'date' => 'required',
+            'datefinish' => 'required',
+            'time' => 'required',
         ]);
         $user = request('username');
         $task = new Task();
@@ -30,9 +35,12 @@ class TaskController extends Controller
         $task->name = request('nametask');
         $task->description = request('description');
         $task->date = request('date');
+        $task->time = request('time');
         $task->end = request('datefinish');
         $task->complete = 0;
         $task->save();
+        $details = request('email');
+        \Mail::to($details)->send(new \App\Mail\TaskMail($task));
         return redirect('/mytask/'.$user);
         // dd($task);
         }
@@ -43,23 +51,25 @@ class TaskController extends Controller
         return view('list.show', compact('tasks','admin', 'user', 'completed'));
     }
     public function edit($id){
+        $user = UserTasks::all();
         $task = Task::where('id', $id)->firstOrFail();
         $notes = Notes::where('id_tasks', $id)->get();
         
-        return view('list.edit', compact('task','notes'));
+        return view('list.edit', compact('task','notes', 'user'));
     }
     public function update($id){
         $data = request ()->validate([
             'nametask' => 'required|min:3',
         ]);
-        $user = request('user');
+        $user = request('usertwo');
         $info = [
             'user_id'=>request('user'),
             'name'=>request('nametask'),
             'description'=>request('description'),
             'date'=>request('date'),
             'complete'=>0,
-            'end'=>request('end'),
+            'time'=>request('time'),
+            'end'=>request('datefinish'),
         ];
         $task = Task::updateOrCreate(
             ['id'=> $id,], $info);
@@ -81,12 +91,15 @@ class TaskController extends Controller
             'time'=>request('time'),
             'date'=>request('date'),
             'complete'=>1,
-            'end'=>request('end'),
+            'end'=>request('datefinish'),
         ];
         $user = request('user_id');
         $task = Task::updateOrCreate(
-            ['id'=> $id,], $info);
+            ['id'=> $id,],
+            $info
+        );
         return redirect('/mytask/'.$user);        
+        // dd($info);
     }
     
 }
