@@ -20,7 +20,7 @@ class CreateDailytaskTable extends Migration
             $table->string('name');
             $table->string('description')->nullable();
             $table->time('time', $precision = 0);
-            $table->string('group')->nullable();
+            
         });
     }
 

@@ -2,10 +2,11 @@
 
 @section('content')
 
-<div class="container-fluid" style="margin-top: 70px;">
+<div class="container">
     <div class="row">
-      <div class="col-md-12" style="text-align: center">
-        <h1 class="display-1">Schedule</h1><br>
+      <div class="col-md-1"></div>
+      <div class="col-md-11">
+        <h1 style="padding-top: 50px; color: white;">Schedule</h1><br>
       </div>
     </div>
     <div class="row">
@@ -22,7 +23,7 @@
             <col span="1" style="width: 5%;">
          </colgroup>
           <thead>
-            <tr>
+            <tr  style="color: white;">
               <th scope="col">Name</th>
               <th colspan="2">Date </th>
               <th scope="col">Description</th>
@@ -32,7 +33,7 @@
             </tr>
           </thead>
         @foreach ($tasks as $task)
-          <tr>
+          <tr  style="color: white;">
             <td>{{ $task->name }}</td>
             <td>
               {{--<input type="time" disabled value="{{ $task->time }}">--}} 
@@ -109,12 +110,11 @@
         </div>
         <div class="col-md-1"></div>
     </div>
-    <div class="row" style="margin-top: 50px">
-      <div class="col-md-3"></div>
-      <div class="col-md-6" style="text-align: center">
-        <h3>Tasks Completed</h3>
+    <div class="row" style="margin-top: 90px">
+      <div class="col-md-1"></div>
+      <div class="col-md-11">
+        <h1 style="color: white;">Tasks Completed</h1>
       </div>
-      <div class="col-md-3"></div>
     </div>
     <div class="row" style="margin-top: 50px">
       <div class="col-md-3"></div>
@@ -127,7 +127,7 @@
          </colgroup>
          <tbody>
           @foreach ($completed as $completed)
-          <tr>
+          <tr style="color: white;">
             <td> {{ $completed->name }} </td>
             <td><a href="/edit/{{ $completed->id }}" class="btn btn-primary"><i class="fa fa-edit"></a></td>
             <td>

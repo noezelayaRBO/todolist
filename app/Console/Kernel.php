@@ -26,6 +26,12 @@ class Kernel extends ConsoleKernel
      * @param  \Illuminate\Console\Scheduling\Schedule  $schedule
      * @return void
      */
+
+    protected function scheduleTimezone()
+    {
+        return 'America/El_Salvador';
+    }
+
     protected function schedule(Schedule $schedule)
     {
         

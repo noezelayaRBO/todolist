@@ -4,19 +4,21 @@
 
 <div class="container" style="padding-top: 50px">
     <div class="row">
-        <div class="col-md-4"></div>
+        <div class="col-md-1"></div>
         <div class="col-md-4">
             
             <div class="row">
-                <div class="col-md-12"><h3 style="text-align: center">Your Weekly Task</h3></div>
+                <div class="col-md-12">
+                    <h1 style="color: white; margin-top: 50px;">Your Weekly Task</h1>
+                </div>
             </div>
             <div class="row" style="padding-top: 50px">
                 <div class="col-md-12">
                     <input type="hidden" id="id" name="id" value="{{ $info->id }}">
-                    <p><strong>Name: </strong>{{ $info->name }}</p>
-                    <p><strong>Description: </strong>{{ $info->description }}</p>
-                    <p><strong>Day: </strong>{{ $info->day }}</p>
-                    <p><strong>Time: </strong><input type="time" disabled value="{{ $info->time }}"></p>
+                    <p><strong style="color: white">Name: </strong>{{ $info->name }}</p>
+                    <p><strong style="color: white">Description: </strong>{{ $info->description }}</p>
+                    <p><strong style="color: white">Day: </strong>{{ $info->day }}</p>
+                    <p><strong style="color: white">Time: </strong><input type="time" disabled value="{{ $info->time }}" style="background-color: transparent;"></p>
                 </div>
             </div>
             <div class="row" style="padding-top: 20px">

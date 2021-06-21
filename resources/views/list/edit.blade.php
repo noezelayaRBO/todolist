@@ -2,64 +2,54 @@
 
 @section('content')
 
-<div class="container-fluid">
+<div class="container">
     <div class="row">
-        <div class="col-md-8">
+        <div class="col-md-1"></div>
+        <div class="col-md-4">
             <form class="row g-3" style="padding-top: 30px" action="/update/{{ $task->id }}" method="POST">
                 @method('PATCH')
                 @csrf
                 <div class="row">
                     <div class="col-md-12">
-                        <h2 style="text-align: center;">Edit Task</h2>
+                        <h1 style="color: white;">Edit Task</h1>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-3"></div>
-                    <div class="col-md-6">
-                        <label for="validationCustom01" class="form-label">Name</label>
-                        <input type="text" class="form-control" id="name" name="nametask" value="{{ old('name') ?? $task->name }}">
+                    <div class="col-md-12">
+                        <label for="validationCustom01" class="form-label" style="padding-top: 30px">Name</label>
+                        <input type="text" class="form-control" id="name" name="nametask" value="{{ old('name') ?? $task->name }}" style="background-color: Transparent; border: none; border-bottom: 2px solid #858585; border-radius: 0px; color: white;">
                     </div>
-                    <div class="col-md-3"></div>
                 </div>
                 <div class="row">
-                    <div class="col-md-3"></div>
-                    <div class="col-md-6">
-                        <label for="validationCustom01" class="form-label">Description</label>
-                        <textarea type="text" name="description" value="{{ old('description')}}" cols="30" rows="6" class="form-control" value="{{ old('name') ?? $task->description }}">{{ $task->description }}</textarea>
+                    <div class="col-md-12">
+                        <label for="validationCustom01" class="form-label" style="padding-top: 30px">Description</label>
+                        <textarea type="text" name="description" value="{{ old('description')}}" cols="30" rows="6" class="form-control" value="{{ old('name') ?? $task->description }}" style="background-color: Transparent; border: none; border-bottom: 2px solid #858585; border-radius: 0px; color: white;">{{ $task->description }}</textarea>
                     </div>
-                    <div class="col-md-3"></div>
                 </div>
                 <div class="row">
-                    <div class="col-md-3"></div>
-                    <div class="col-md-6">
-                        <label for="validationCustom01" class="form-label">Start Day</label>
-                        <input type="date" name="date" id="date" class="form-control" value="{{ $task->date }}">
+                    <div class="col-md-12">
+                        <label for="validationCustom01" class="form-label" style="padding-top: 30px">Start Day</label>
+                        <input type="date" name="date" id="date" class="form-control" value="{{ $task->date }}" style="background-color: Transparent; border: none; border-bottom: 2px solid #858585; border-radius: 0px; color: white;">
                     </div>
-                    <div class="col-md-3"></div>
                 </div>
                 <div class="row">
-                    <div class="col-md-3"></div>
-                    <div class="col-md-6">
-                        <label for="validationCustom01" class="form-label">Finish Day</label>
-                        <input type="date" name="datefinish" id="datefinish" class="form-control" value="{{ $task->end }}">
+                    <div class="col-md-12">
+                        <label for="validationCustom01" class="form-label" style="padding-top: 30px">Finish Day</label>
+                        <input type="date" name="datefinish" id="datefinish" class="form-control" value="{{ $task->end }}" style="background-color: Transparent; border: none; border-bottom: 2px solid #858585; border-radius: 0px; color: white;">
                     </div>
-                    <div class="col-md-3"></div>
                 </div>
                 <div class="row">
-                    <div class="col-md-3"></div>
-                    <div class="col-md-6">
-                        <label for="validationCustom01" class="form-label">Time End</label>
-                        <input type="time" name="time" id="time" class="form-control" value="{{ $task->time }}">
+                    <div class="col-md-12">
+                        <label for="validationCustom01" class="form-label" style="padding-top: 30px">Time End</label>
+                        <input type="time" name="time" id="time" class="form-control" value="{{ $task->time }}" style="background-color: Transparent; border: none; border-bottom: 2px solid #858585; border-radius: 0px; color: white;">
                     </div>
-                    <div class="col-md-3"></div>
                 </div>
                 <div class="row hidden" style="padding-top: 20px">
-                    <div class="col-md-4"></div>
-                    <div class="col-md-4">
+                    <div class="col-md-12">
                         <select class="form-select" name="user" id="user">
                             {{-- <option value="{{ auth()->user()->name }}" selected>{{ auth()->user()->name }} </option> --}}
                         @foreach ($user as $user)
-                            <option value="{{ $user->name }}" {{ $user->name == $task->user_id ? 'selected' : '' }}>{{ $user->name }}</option>    
+                            <option value="{{ $user->name }}" {{ $user->name == $task->user_id ? 'selected' : '' }} style="background-color: Transparent; border: none; border-bottom: 2px solid #858585; border-radius: 0px;">{{ $user->name }}</option>    
                         @endforeach
                     </select>
                     </div>
@@ -79,36 +69,33 @@
                     @endif
                 
                 <div class="row">
-                    <div class="col-md-3"></div>
-                    <div class="col-md-6">
+                    <div class="col-md-12">
                         <input type="hidden" class="form-control" id="usertwo" name="usertwo" value="{{ auth()->user()->name }}">
                         <button type="submit" class="btn btn-dark" style="margin-top: 20px;">Update</button>
                     </div>
-                    <div class="col-md-3"></div>
                 </div>
             </form>
             </div>
+            <div class="col-md-2"></div>
         <div class="col-md-4">
             <form action="/storenotes/{{ $task->id }}" class="row g-3" style="padding-top: 60px" method="POST">
                         @csrf
                         <div class="row">
-                            <div class="col-md-8">
+                            <div class="col-md-12">
                                 <label for="validationCustom01" class="form-label">Notes</label>
-                                <input type="text" name="notes" value="{{ old('name') }}" class="form-control">
+                                <input type="text" name="notes" value="{{ old('name') }}" class="form-control" style="background-color: Transparent; border: none; border-bottom: 2px solid #858585; border-radius: 0px; color: white;">
                                 {{ $errors->first('notes') }}
                             </div>
-                            <div class="col-md-4"></div>
                         </div>
                         <div class="row">
-                            <div class="col-md-8">
+                            <div class="col-md-12">
                                 <input type="hidden" class="form-control" id="idjv" name="idjv" value="{{ $task->id }}">
                                 <button type="submit" class="btn btn-dark" style="margin-top: 20px;">Add Note</a>
                             </div>
-                            <div class="col-md-4"></div>
                         </div>
                     </form>
                     <div class="row">
-                        <div class="col-md-8">
+                        <div class="col-md-12">
                             <table class="table table-striped table-hover width:100%" style="margin-top: 30px">
                                 <colgroup>
                                     <col span="1" style="width: 75%;">
@@ -116,7 +103,7 @@
                                     <col span="1" style="width: 15%;">
                                  </colgroup>
                                 @foreach ($notes as $notes)
-                                    <tr>
+                                    <tr style="color: white;">
                                         <td>{{ $notes->notes }}</td>
                                         <div class="modal fade" id="exampleModal{{ $notes->id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                             <form action="/updatenote/{{ $notes->id }}" method="POST">
@@ -176,21 +163,9 @@
                                     @endforeach
                             </table>
                         </div>
-                        <div class="col-md-4"></div>
                     </div>
         </div> 
     </div> 
 </div> 
-            <div class="col-md-4">
-                <div class="container-fluid">
-                    
-                        <div class="row">
-                            <div class="col-md-12">
-                                
-                            </div>
-                        </div>
-                    </form>
-                    <div class="row">
-                        <div class="col-md-12">
 
 @endsection

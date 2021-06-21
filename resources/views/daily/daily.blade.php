@@ -2,80 +2,75 @@
 
 @section('content')
 
-<div class="container-fluid">
+<div class="container">
     <div class="row">
-        <div class="col-md-12">
-            <h2 style="text-align: center; margin-top: 50px;">Daily</h2><br><br>
+        <div class="col-md-1"></div>
+        <div class="col-md-10">
+            <h1 style="margin-top: 50px; color: white;">Daily</h1><br>
         </div>
+        <div class="col-md-1"></div>
     </div>
     <div class="row">
-    <div class="col-md-4">
-        <form action="/storedaily/{{ auth()->user()->id }}" class="row g-3" method="POST" enctype="multipart/form-data">
-            @csrf        
-            <div class="row">
-                        <div class="col-md-12" style="text-align: center"><h4>Add a Daily Task</h4></div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-1"></div>
-                        <div class="col-md-10">
-                        <label for="validationCustom01" class="form-label">Name</label>
-                        <input type="text" class="form-control" id="name" name="name" value="">
-                        {{ $errors->first('name') }}
-                        </div>
-                        <div class="col-md-1"></div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-1"></div>
-                        <div class="col-md-10">
-                            <input type="hidden" id="status" name="status" value="daily">
-                            <label for="validationCustom01" class="form-label">Description</label>
-                            <textarea type="text" name="description" value="{{ old('message') }}" cols="30" rows="6" class="form-control"></textarea>
-                        </div>
-                        <div class="col-md-1"></div>
-                        
-                    </div>
-                    <div class="row">
-                        <div class="col-md-1"></div>
-                        <div class="col-md-10">
-                            <label for="validationCustom01" class="form-label">Time</label>
-                            <input type="time" name="time" id="time" class="form-control">
-                            {{ $errors->first('time') }}
-                        </div>
-                        <div class="col-md-1"></div>
-                    </div>  
-                    <div class="row hidden" style="padding-top: 20px">
-                        <div class="col-md-1"></div>
-                        <div class="col-md-10">
-                            <select class="form-select" name="user" id="user">
-                                <option value="{{ auth()->user()->id }}" selected>{{ auth()->user()->name }} </option>
-                            @foreach ($user as $user)
-                                <option value="{{ $user->id }}">{{ $user->name }}</option>    
-                            @endforeach
-                        </select>
-                        </div>
-                        <div class="col-md-1"></div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-11" style="text-align: right">
-                            <input type="hidden" id="email" name="email" value="{{ auth()->user()->email }}">
-                            <button type="submit" class="btn btn-dark" style="margin-top: 10px;">Add</button>
-                        </div>
-                        <div class="col-md-1"></div>
-                    </div>          
-                </form>
-            </div>
-            <div class="col-md-8">
+        <div class="col-md-1"></div>
+        <div class="col-md-4">
+            <form action="/storedaily/{{ auth()->user()->id }}" class="row g-3" method="POST" enctype="multipart/form-data">
+                @csrf        
                 <div class="row">
-                    <div class="col-md-12">
-                        <h2 style="text-align: center">My Day</h2>
+                            <div class="col-md-12"><p style="color: white;">Add a Daily Task</p></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                            <label for="validationCustom01" class="form-label" style="padding-top: 30px">Name</label>
+                            <input type="text" class="form-control" id="name" name="name" value="" style="background-color: Transparent; border: none; border-bottom: 2px solid #858585; border-radius: 0px; color: white;">
+                            {{ $errors->first('name') }}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <input type="hidden" id="status" name="status" value="daily">
+                                <label for="validationCustom01" class="form-label" style="padding-top: 30px">Description</label>
+                                <textarea type="text" name="description" value="{{ old('message') }}" cols="30" rows="6" class="form-control" style="background-color: Transparent; border: none; border-bottom: 2px solid #858585; border-radius: 0px; color: white;"></textarea>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label for="validationCustom01" class="form-label" style="padding-top: 30px">Time</label>
+                                <input type="time" name="time" id="time" class="form-control" style="background-color: Transparent; border: none; border-bottom: 2px solid #858585; border-radius: 0px; color: white;">
+                                {{ $errors->first('time') }}
+                            </div>
+                        </div>  
+                        <div class="row hidden" style="padding-top: 20px">
+                            <div class="col-md-12">
+                                <label for="validationCustom01" class="form-label" style="padding-top: 30px">User</label>
+                                <select class="form-select" name="user" id="user">
+                                    <option value="{{ auth()->user()->id }}" selected >{{ auth()->user()->name }} </option>
+                                @foreach ($user as $user)
+                                    <option value="{{ $user->id }}">{{ $user->name }}</option>    
+                                @endforeach
+                            </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <input type="hidden" id="email" name="email" value="{{ auth()->user()->email }}">
+                                <p>Add <button type="submit" style="margin-top: 10px; background-color: Transparent;"><i class="bi bi-arrow-right" style="color: red"></i></button></p>
+                            </div>
+                        </div>          
+                    </form>
+            </div>
+            <div class="col-md-6">
+                <div class="row">
+                    <div class="col-md-1"></div>
+                    <div class="col-md-11">
+                        <h2 style="color: white;">My Day</h2>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-1"></div>
-                    <div class="col-md-10">
+                    <div class="col-md-11">
                         <table class="table table-striped table-hover">
                             <thead>
-                              <tr>
+                              <tr style="color: white;">
                                 <th>Time</th>
                                 <th>Name</th>
                                 <th>Description</th>
@@ -91,8 +86,8 @@
                                 <col span="1" style="width: 5%;">
                              </colgroup>
                           @foreach ($daily as $daily)
-                            <tr>
-                              <td><input type="time" disabled value="{{ $daily->time }}"></td>
+                            <tr style="color: #f0f0f0">
+                              <td><input type="time" disabled value="{{ $daily->time }}" style="background-color: Transparent; color: #f0f0f0"></td>
                               <td>{{ $daily->name }}</td>
                               <td>{{ $daily->description }}</td>
                               <form action="/deletedaily/{{ $daily->id }}" id="deletedaily{{ $daily->id }}" method="POST">
@@ -132,12 +127,12 @@
                               @endforeach
                             </table>
                     </div>
-                    <div class="col-md-1"></div>
+                    
                 </div>
             </div> 
+            <div class="col-md-1"></div>
         </div> 
     </div>
-</div>
 <style>
     div.hidden{
         display:none;

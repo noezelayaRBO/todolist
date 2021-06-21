@@ -31,52 +31,62 @@
         <style>
             body {
                 font-family: 'Nunito', sans-serif;
+                background-color: black;
+                color: #858585;
             }
         </style>
     </head>
-    <div class="w3-sidebar w3-bar-block w3-border-right" style="display:none;"  id="mySidebar">
-      <button onclick="w3_close()" class="w3-bar-item w3-large">Close &times;</button>
-      <a class="nav-link active" aria-current="page" href="/homeuser"  style="color: black;"><i class="bi bi-house"></i> Home</a>
-      <a class="nav-link" href="/contactus"  style="color: black;" ><i class="bi bi-envelope"></i> Contact Us </a> 
-      <a class="nav-link" href="/daily/{{ auth()->user()->id }}"  style="color: black;"><i class="bi bi-alarm"></i> Daily tasks</a>
-      <a class="nav-link" href="/weekly/{{ auth()->user()->id }}"  style="color: black;"><i class="bi bi-alarm"></i> Weekly tasks</a>
-      <a class="nav-link" href="/create/{{ auth()->user()->id }}" style="color: black;"><i class="bi bi-plus-circle"></i> Add Task</a>
-      <a class="nav-link" href="/mytask/{{ auth()->user()->name }}" style="color: black;"><i class="bi bi-calendar-day"></i> My Task</a> 
-      
-      
-    </div>
-    <div class="w3-teal" style="background-color: black">
-      <button class="w3-button w3-teal w3-xlarge" onclick="w3_open()">☰</button>
-      <div class="w3-container">
-        <h1>To do list</h1>
+    <div class="container" style="background-color: black; padding-top: 30px;">
+      <div class="row">
+        <div class="navbar navbar-expand flex-column flex-md-row bd-navbar">
+          <div class="col-md-1"></div>
+          <div class="col-md-4">
+            <a href="/homeuser"><i class="bi bi-calendar2-check-fill fa-lg" style="color: #858585"></i></a>
+          </div>
+          <div class="col-md-6">
+            <table style="width: 100%">
+              {{-- <col span="1" style="width: 10%">
+                <col span="1" style="width: 15%">
+                <col span="1" style="width: 15%">
+                <col span="1" style="width: 15%">
+                <col span="1" style="width: 15%">
+                <col span="1" style="width: 15%">
+                <col span="1" style="width: 15%">
+              </colgroup> --}}
+              <tr style="text-align: right;">
+                <td><a href="/homeuser">Home</a></td>
+                <td><a href="/contactus">Contact Us </a></td> 
+                <td><a href="/daily/{{ auth()->user()->id }}">Daily tasks</a></td>
+                <td><a href="/weekly/{{ auth()->user()->id }}">Weekly tasks</a></td>
+                <td><a href="/create/{{ auth()->user()->id }}">Add Task</a></td>
+                <td><a href="/mytask/{{ auth()->user()->name }}">My Task</a></td>
+              </tr>
+            </table>
+              
+            
+            
+            @if (Route::has('login'))
+                  <div class="hidden fixed top-0 right-0 px-6 py-4 sm:block">
+                      @auth
+                          <a href="{{ url('/user/profile') }}" class="text-sm text-gray-700 underline">User</a>
+                      @else
+                          <a href="{{ route('login') }}" class="text-sm text-gray-700 underline">Log in</a>
+
+                          @if (Route::has('register'))
+                              <a href="{{ route('register') }}" class="ml-4 text-sm text-gray-700 underline">Register</a>
+                          @endif
+                      @endauth
+                </div>
+              @endif
+        </div>
+        <div class="col-md-1"></div>
       </div>
     </div>
-    <script>
-      function w3_open() {
-        document.getElementById("mySidebar").style.display = "block";
-      }
-      
-      function w3_close() {
-        document.getElementById("mySidebar").style.display = "none";
-      }
-      </script>
-    @if (Route::has('login'))
-          <div class="hidden fixed top-0 right-0 px-6 py-4 sm:block">
-              @auth
-                  <a href="{{ url('/user/profile') }}" class="text-sm text-gray-700 underline">User</a>
-              @else
-                  <a href="{{ route('login') }}" class="text-sm text-gray-700 underline">Log in</a>
-
-                  @if (Route::has('register'))
-                      <a href="{{ route('register') }}" class="ml-4 text-sm text-gray-700 underline">Register</a>
-                  @endif
-              @endauth
-          </div>
-      @endif
-
+    </div>
              
 
 
             @yield('content')
+            <div class="container" style="height: 120px"></div>
     </body>
 </html>

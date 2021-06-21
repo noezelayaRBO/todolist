@@ -15,11 +15,46 @@
                                 </inertia-link>
                             </div>
 
-                            <!-- Navigation Links -->
+                            <!-- Navigation Links :active="route().current('dashboard')" -->
                             <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                                <jet-nav-link :href="route('dashboard')" :active="route().current('dashboard')">
-                                    Dashboard
+                                <!-- <jet-nav-link href="/homeuser">
+                                    Home
                                 </jet-nav-link>
+                                <jet-nav-link href="/contactus">
+                                    Contact Us
+                                </jet-nav-link>
+                                <jet-nav-link href="/daily/{{ auth()->user()->id }}">
+                                    Daily tasks
+                                </jet-nav-link>
+                                <jet-nav-link href="/weekly/{{ auth()->user()->id }}">
+                                    Weekly tasks
+                                </jet-nav-link>
+                                <jet-nav-link href="/create/{{ auth()->user()->id }}">
+                                    Add Task
+                                </jet-nav-link>
+                                <jet-nav-link href="/mytask/{{ auth()->user()->name }}">
+                                    My Task
+                                </jet-nav-link> -->
+                                <!-- <a href="/homeuser">Home</a> -->
+                                <table style="width: 900px">
+                                    <colgroup>
+                                        <col span="1" style="width: 10%">
+                                        <col span="1" style="width: 15%">
+                                        <col span="1" style="width: 15%">
+                                        <col span="1" style="width: 15%">
+                                        <col span="1" style="width: 15%">
+                                        <col span="1" style="width: 15%">
+                                        <col span="1" style="width: 15%">
+                                    </colgroup>
+                                    <tr>
+                                        <td><a href="/homeuser">Home</a></td>
+                                        <td><a href="/contactus">Contact Us</a></td>
+                                        <td><a href="/daily/{{ auth()->user()->id }}">Daily tasks</a></td>
+                                        <td><a href="/weekly/{{ auth()->user()->id }}">Weekly tasks</a></td>
+                                        <td><a href="/create/{{ auth()->user()->id }}">Add Task</a></td>
+                                        <td><a href="/mytask/{{ auth()->user()->name }}">My Task</a></td>
+                                    </tr>
+                                </table>
                             </div>
                         </div>
 

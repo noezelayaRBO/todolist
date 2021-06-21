@@ -21,7 +21,7 @@ class CreateWeeklytaskTable extends Migration
             $table->string('description')->nullable();
             $table->time('time', $precision = 0);
             $table->string('day');
-            $table->string('group')->nullable();
+            
         });
     }
 

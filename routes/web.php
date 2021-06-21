@@ -10,6 +10,9 @@ use App\Http\Controllers\NoteController;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\WeeklyController;
 
+use App\Http\Resources\UserResource;
+use App\Models\User;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -33,6 +36,10 @@ Route::get('/', function () {
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->name('dashboard');
+
+// Route::middleware(['auth:sanctum', 'verified'])->get('/homeuser', function () {
+//     return Inertia::render('Homeuser');
+// })->name('homeuser');
 
 Route::get('/homeuser', [TaskController::class,'welcome'])->middleware('auth');
 Route::get('/create/{id}', [TaskController::class,'create'])->middleware('auth');
@@ -63,3 +70,12 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 Route::get('/weekly/{weekly}/index', [WeeklyController::class,'showweekly']);
 Route::resource('weekly', 'App\Http\Controllers\WeeklyController');
+
+Route::view('/test', 'test');
+
+Route::get('/api/{id}', function ($id) {
+    return new UserResource(User::findOrFail($id));
+});
+Route::get('/apiuser', function () {
+    return UserResource::collection(User::all());
+});
